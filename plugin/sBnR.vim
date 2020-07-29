@@ -1,8 +1,16 @@
-" sBnR
+" sB&R - Simple Build&Run
 " Maintainer:  Jorengarenar <https://joren.ga>
 
 if exists('g:loaded_sBnR') | finish | endif
 let s:cpo_save = &cpo | set cpo&vim
+
+if !exists("$TMPDIR")
+  let $TMPDIR = "/tmp"
+endif
+
+if !exists("$BROWSER")
+  let $BROWSER = "xdg-open"
+endif
 
 if !exists("g:sBnR_compilers")
   let g:sBnR_compilers = {
@@ -59,6 +67,10 @@ endif
 command! -nargs=* RunProg     call sBnR#run(expand('%:t:r'), "<args>")
 command! -nargs=* Build       call sBnR#build("<args>")
 command! -nargs=* BuildAndRun call sBnR#buildAndRun()
+
+command! -nargs=+       AddCompiler call sBnR#addCompiler(<f-args>)
+command! -nargs=+ -bang AddMakeprg  call sBnR#addMakeprg(<bang>0, <f-args>)
+command! -nargs=+ -bang AddRunCmd   call sBnR#addRunCmd(<bang>0, <f-args>)
 
 if get(g:, "sBnR_mappings", 1)
   nnoremap <F7>  :Build<CR>

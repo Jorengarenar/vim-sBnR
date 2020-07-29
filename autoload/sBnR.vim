@@ -2,6 +2,7 @@ for [ft, comp] in items(g:sBnR_compilers)
   execute "autocmd filetype ".ft." compiler! ".comp
 endfor
 
+
 function! sBnR#run(file, ...) abort
   let options = ""
   let detach = 0
@@ -114,4 +115,24 @@ function! sBnR#buildAndRun() abort
   endif
 endfunction
 
-" vim: fen
+
+function! sBnR#addMakeprg(bang, ft, ...) abort
+  let g:sBnR_makeprgs[a:ft] = [ a:bang, join(a:000) ]
+endfunction
+
+function! sBnR#addRunCmd(bang, mode, ft, ...) abort
+  let foo = 0
+  if a:bang
+    if a:home == "detach"
+      let foo = 1
+    elseif a:mode == "close"
+      let foo = 2
+    endif
+  endif
+  let g:sBnR_makeprgs[a:ft] = [ foo, join(a:000) ]
+endfunction
+
+function! sBnR#addCompiler(ft, comp) abort
+  let g:sBnR_makeprgs[a:ft] = a:comp
+  execute "autocmd filetype ".a:ft." compiler! ".a:comp
+endfunction
