@@ -120,16 +120,20 @@ function! sBnR#addMakeprg(bang, ft, ...) abort
   let g:sBnR_makeprgs[a:ft] = [ a:bang, join(a:000) ]
 endfunction
 
-function! sBnR#addRunCmd(bang, mode, ft, ...) abort
+function! sBnR#addRunCmd(bang, ft, ...) abort
   let foo = 0
+  let cmd = deepcopy(a:000)
   if a:bang
-    if a:home == "detach"
+    let mode = cmd[0]
+    call remove(cmd, 0)
+    if mode == "detach"
       let foo = 1
-    elseif a:mode == "close"
+    elseif mode == "close"
       let foo = 2
     endif
   endif
-  let g:sBnR_makeprgs[a:ft] = [ foo, join(a:000) ]
+  let g:sBnR_runCmds[a:ft] = [ foo, join(cmd) ]
+  echo g:sBnR_runCmds[a:ft]
 endfunction
 
 function! sBnR#addCompiler(ft, comp) abort
