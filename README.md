@@ -1,4 +1,4 @@
-# sR&B - Simple Build&Run for Vim
+# sB&R - Simple Build&Run for Vim
 
 Using `compiler`, `makeprg` and `term`, builds and runs your source code.
 
@@ -21,11 +21,11 @@ compilation errors in QuickFix window!
 ## Installation
 * [minPlug](https://github.com/Jorengarenar/minPlug)
 ```none
-MinPlug Jorengarenar/vim-sRnB
+MinPlug Jorengarenar/vim-sBnR
 ```
 * vim-plug
 ```vim
-Plug 'Jorengarenar/vim-sRnB'
+Plug 'Jorengarenar/vim-sBnR'
 ```
 
 ## Commands
