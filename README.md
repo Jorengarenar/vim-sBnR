@@ -29,12 +29,12 @@ Plug 'Jorengarenar/vim-sRnB'
 ```
 
 ## Commands
-* `RunProg`
-* `Build`
-* `BuildAndRun`
+* `Build {args}` - builds program based on source file, if there is no `g:sBnR_makeprgs[&ft]`, then uses `make %:t:r`
+* `RunProg {args}` - checks `g:sBnR_runCmds`, if not then if for executable called `%:t:r`, then if `g:sBnR_makeprgs[&ft]` is interpreter
+* `BuildAndRun {args}` - first builds, then if no errors runs. Interpreters are executed only once
 * `AddCompiler {filetype} {compiler}`
-* `AddMakeprg[!] {filetype} {makeprg}`
-* `AddRunCmd[!] [mode] {filetype} {cmd}`
+* `AddMakeprg[!] {filetype} {makeprg}` - if `!` is passed, `makeprg` is marked as interpreter
+* `AddRunCmd[!] [mode] {filetype} {cmd}` - if `!` is passed, `[mode]` is read. Possible values: "detach", "close"
 
 ## Mappings
 * <kbd>F7</kbd>  `:Build`
@@ -43,12 +43,34 @@ Plug 'Jorengarenar/vim-sRnB'
 * <kbd>F10</kbd> `:w <bar> make<CR>`
 
 ## Configuration
-* `g:sBnR_compilers` - dictionary with compilers
-* `g:sBnR_makeprgs` - dictionary with makeprgs
-* `g:sBnR_runCmds` - dictionary with commands to run with `:Run`
+* `g:sBnR_compilers` - dictionary with compilers, example:
+
+```vim
+let g:sBnR_compilers = {
+  \ "c,cpp"  : "gcc",
+  \ "python" : "pyunit",
+  \}
+```
+
+* `g:sBnR_makeprgs` - dictionary with makeprgs. Structure:`filetype: [ isInterpreter, "command" ]`. Example:
+
+```vim
+let g:sBnR_makeprgs = {
+      \ "cpp"    : [ 0, "g++ -std=gnu++14 -g % -o %:t:r" ],
+      \ "python" : [ 1, "python %" ],
+      \}
+```
+* `g:sBnR_runCmds` - dictionary with commands to run with `:Run`, example:
+```vim
+let g:sBnR_runCmds = {
+      \ "html" : [ 1, "$BROWSER %:p" ],
+      \ "java" : [ 0, "java -jar %:t:r.jar" ],
+      \}
+```
+
 * `g:sBnr_mappings` - if set to 0, don't use default mappings
-* `TMPDIR` - directory for temporary files, default `/tmp`
-* `BROWSER` - web browser, default `xdg-open`
+* `TMPDIR` - environment variable, directory for temporary files, default `/tmp`
+* `BROWSER` - environment variable, web browser, default `xdg-open`
 
 ## Defaults
 
