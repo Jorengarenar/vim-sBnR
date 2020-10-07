@@ -1,8 +1,3 @@
-for [ft, comp] in items(g:sBnR_compilers)
-  execute "autocmd filetype ".ft." compiler! ".comp
-endfor
-
-
 function! sBnR#run(file, ...) abort
   let options = ""
   let detach = 0

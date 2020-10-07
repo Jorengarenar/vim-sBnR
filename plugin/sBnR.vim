@@ -79,5 +79,9 @@ if get(g:, "sBnR_mappings", 1)
   nnoremap <F10> :w <bar> make<CR>
 endif
 
+for [ft, comp] in items(g:sBnR_compilers)
+  execute "autocmd filetype ".ft." compiler! ".comp
+endfor
+
 let g:loaded_sBnR = 1
 let &cpo = s:cpo_save | unlet s:cpo_save
