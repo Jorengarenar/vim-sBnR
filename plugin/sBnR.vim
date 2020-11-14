@@ -64,8 +64,8 @@ if !exists("g:sBnR_runCmds")
         \}
 endif
 
-command! -nargs=* RunProg     call sBnR#run(expand('%:t:r'), "<args>")
-command! -nargs=* Build       call sBnR#build("<args>")
+command! -nargs=* -bar RunProg     call sBnR#run(expand('%:t:r'), "<args>")
+command! -nargs=* -bar Build       call sBnR#build("<args>")
 command! -nargs=* BuildAndRun call sBnR#buildAndRun()
 
 command! -nargs=+       AddCompiler call sBnR#addCompiler(<f-args>)

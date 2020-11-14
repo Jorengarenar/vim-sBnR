@@ -79,7 +79,7 @@ function! sBnR#build(...) abort
   let interpreter = 0
 
   if has_key(g:sBnR_makeprgs, &ft)
-    let cmd = "(" . g:sBnR_makeprgs[&ft][1] . get(a:, 1, "") . ")"
+    let cmd = "(" . g:sBnR_makeprgs[&ft][1] . " " . get(a:, 1, "") . ")"
 
     if g:sBnR_makeprgs[&ft][0]
       call s:runInterpreter(cmd)
