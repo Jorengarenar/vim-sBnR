@@ -1,9 +1,11 @@
 # sB&R - Simple Build&Run for Vim
 
-Using `compiler`, `makeprg` and `term`, builds and runs your source code.
+Using [`compiler`](https://vimhelp.org/quickfix.txt.html#:compiler),
+[`makeprg`](https://vimhelp.org/options.txt.html#%27makeprg%27)
+and [`term`](https://vimhelp.org/term.txt.html), builds and runs your code.
 
-Suitable for small, simple, one file programs, which you want to test
-immediately without the need of Makefile or typing bang command over and over again.
+Suitable for small and simple, programs, which you want to test immediately
+without the need of Makefile or typing bang command over and over again.
 
 ## Why?
 
@@ -19,19 +21,27 @@ to your _vimrc_ and press <kbd>F9</kbd> to compile, run and list eventual
 compilation errors in QuickFix window!
 
 ## Installation
-* [minPlug](https://github.com/Jorengarenar/minPlug)
-```none
+
+#### [minPlug](https://github.com/Jorengarenar/minPlug):
+```vim
 MinPlug Jorengarenar/vim-sBnR
 ```
-* vim-plug
+
+#### [vim-plug](https://github.com/junegunn/vim-plug):
 ```vim
 Plug 'Jorengarenar/vim-sBnR'
 ```
 
+#### Vim's packages
+```bash
+cd ~/.vim/pack/plugins/start
+git clone git://github.com/Jorengarenar/vim-sBnR.git
+```
+
 ## Commands
 * `Build {args}` - builds program based on source file, if there is no `g:sBnR_makeprgs[&ft]`, then uses `make %:t:r`
-* `RunProg {args}` - checks `g:sBnR_runCmds`, if not then if for executable called `%:t:r`, then if `g:sBnR_makeprgs[&ft]` is interpreter
-* `BuildAndRun {args}` - first builds, then if no errors runs. Interpreters are executed only once
+* `RunProg {args}` - runs code in `:term` (checks: `g:sBnR_runCmds`, `%:t:r` executable, `g:sBnR_makeprgs[&ft]` is interpreter)
+* `BuildAndRun {args}` - first builds, then if no errors runs your code (interpreters are executed only once)
 * `AddCompiler {filetype} {compiler}`
 * `AddMakeprg[!] {filetype} {makeprg}` - if `!` is passed, `makeprg` is marked as interpreter
 * `AddRunCmd[!] [mode] {filetype} {cmd}` - if `!` is passed, `[mode]` is read. Possible values: "detach", "close"
@@ -43,7 +53,7 @@ Plug 'Jorengarenar/vim-sBnR'
 * <kbd>F10</kbd> `:w <bar> make<CR>`
 
 ## Configuration
-* `g:sBnR_compilers` - dictionary with compilers, example:
+* `g:sBnR_compilers` - dictionary with compilers ([`:h compiler`](https://vimhelp.org/quickfix.txt.html#:compiler)), example:
 
 ```vim
 let g:sBnR_compilers = {
@@ -127,7 +137,3 @@ TeX      | `tex`
 Python   | `pyunit`
 Rust     | `rustc`
 TeX      | `tex`
-
----
-
-**TODO:** docs
